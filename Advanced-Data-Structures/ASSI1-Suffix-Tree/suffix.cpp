@@ -1,3 +1,5 @@
+
+
 #include <cstring>
 #include <cstdio>
 #include <cstdlib>
@@ -131,6 +133,7 @@ private:
                 //current node will be the next child node which hase index = last length + best index 
                 currentNode = currentNode->arr[text[prevLength + bestindex1] - 97];
                 length = getEdgeLength(currentNode);
+
                 prevLength += length;
 
             }
@@ -312,7 +315,7 @@ public:
                 currentNode = currentNode->arr[convertCharToInt(subtext[i])];
                 got++;
 
-                int smallestIndex = len_text;
+                
                 int length;
                 //check if the node is internal and get the length of it's edge
                 if (checkNodeLeaves(currentNode) == false)
@@ -321,7 +324,7 @@ public:
                 }
                 else
                 {
-                    length = smallestIndex - currentNode->index;
+                    length = len_text - currentNode->index;
                 }
                 int counter = 0;
                 //compare the char in edge with char of sub text
@@ -404,20 +407,29 @@ public:
             }
         }
         //All the Children of a node are recursively called -> delete this node pointers
-        delete[] delnode->arr;
+        delete[] delnode;
     }
 };
+
+
 int main()
 {
 
     // Construct a suffix trie containing all suffixes of "bananabanaba$"
     //            0123456789012
-    suffixTrie t("bananabanaba$");
-
+    suffixTrie t("bananabanaba$"); // Test 1
     t.Search("ana"); // Prints: 1 3 7
     t.Search("naba"); // Prints: 4 8
+    t.Search("ban"); // Prints: 0 6
+    t.Search("na"); // Prints: 2 4 8
+    t.Search("bana"); // Prints: 0 6
+    t.Search("ba"); // Prints: 0 6 10
 
-    t.Search("aba"); // Prints: 5 9
+    suffixTrie r("aabbaaabbaaabbbb$"); // Test 2
+    r.Search("aa"); //Prints: 0 4 5 9 10
+    r.Search("aab"); //Prints: 0 5 10
+    r.Search("bba"); //Prints: 2 7 
+    r.Search("aabb"); //Prints: 0 5 10
 
 
 
